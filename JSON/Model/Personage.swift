@@ -7,9 +7,15 @@
 
 import Foundation
 
-struct Personage {
+struct Personage: Decodable {
     
-    
-    
-    
+    let name: String
+    let status: String
+    let image: String
+    let location: [Location]
+}
+
+struct Location: Decodable {
+    let name: String
+    let url: String
 }
