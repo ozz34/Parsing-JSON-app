@@ -55,10 +55,12 @@ final class MainViewController: UICollectionViewController {
     }
     
     private func alert(title: String, message: String) {
+        DispatchQueue.main.async {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
+        }
     }
 }
     // MARK: UICollectionViewDelegateFlowLayout
@@ -68,7 +70,7 @@ final class MainViewController: UICollectionViewController {
         CGSize(width: UIScreen.main.bounds.width - 60, height: 100)
     }
 }
-
+    //MARK: ExtensionViewController
     extension MainViewController {
     
         func fetchGazorpazorpfield() {
@@ -89,7 +91,7 @@ final class MainViewController: UICollectionViewController {
                 } catch {
                     print(error.localizedDescription)
                     self.alert(title: "Failed",
-                               message: "You can see error in the Debug aria")
+                               message: "You can see error in the Debug area")
                 }
             }
             task.resume()

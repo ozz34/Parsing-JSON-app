@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Rick and Morty-->
+        <!--Rick and Morty personage-->
         <scene sceneID="Y6r-ko-BgW">
             <objects>
                 <collectionViewController id="5SU-1l-NvR" customClass="MainViewController" customModule="JSON" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                             <outlet property="delegate" destination="5SU-1l-NvR" id="zxK-5k-asq"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Rick and Morty" id="efb-5o-g2Y"/>
+                    <navigationItem key="navigationItem" title="Rick and Morty personage" id="efb-5o-g2Y"/>
                     <connections>
                         <segue destination="A4b-ZK-b1S" kind="show" identifier="showPicture" id="d1m-y6-oLs"/>
                     </connections>
@@ -104,8 +104,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zS2-wO-LiS" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Bcw-im-4FP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bcw-im-4FP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
