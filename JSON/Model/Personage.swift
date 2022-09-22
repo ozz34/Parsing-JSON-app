@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct Personage: Decodable {
-    
+struct Personages: Decodable {
+    let results: [Results]
+}
+
+struct Results: Decodable {
     let name: String?
     let status: String?
     let image: String?
-    
+    let location: Location?
+}
+
+struct Location: Decodable {
+    let name: String?
+    let url: String?
 }

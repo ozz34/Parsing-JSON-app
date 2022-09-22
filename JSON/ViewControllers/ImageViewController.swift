@@ -14,7 +14,7 @@ final class ImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         
@@ -22,19 +22,10 @@ final class ImageViewController: UIViewController {
     }
     
     private func fetchImage() {
-        guard let url = URL(string: Link.imageURL.rawValue) else { return }
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else { print(error?.localizedDescription ?? "No error description")
-            return
-            }
-            
-            guard let image = UIImage(data: data) else { return }
-            
-            DispatchQueue.main.async {
-                self.imageView.image = image
-                self.activityIndicator.stopAnimating()
-            }
-        }.resume()
+        NetworkManager.shared.fetchImage(from: Link.imageURL.rawValue) { imageData in
+            self.imageView.image = UIImage(data: imageData)
+            self.activityIndicator.stopAnimating()
+        }
     }
 }
