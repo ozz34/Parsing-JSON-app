@@ -7,18 +7,19 @@
 
 import UIKit
 
-class PersonageViewController: UIViewController {
+final class PersonageViewController: UIViewController {
     
     @IBOutlet var personageImageView: UIImageView!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     
-    var personage: Results?
+    private var personage: Results?
     
+    //MARK: - Networking
     func fetchGordonLunas() {
         
-        NetworkManager.shared.fetchPerson(url: Link.gordonURL.rawValue) { personage in
+        NetworkManager.shared.fetch(dataType: Results.self , from: Link.gordonURL.rawValue) { personage in
             DispatchQueue.main.async {
                 self.statusLabel.text = "Status:\(personage.status ?? "")"
                 self.nameLabel.text = "Name: \(personage.name ?? "")"
@@ -31,5 +32,5 @@ class PersonageViewController: UIViewController {
         }
     }
 }
-        
+
     

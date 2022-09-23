@@ -21,6 +21,7 @@ final class ImageViewController: UIViewController {
         fetchImage()
     }
     
+    //MARK: - Networking
     private func fetchImage() {
         
         NetworkManager.shared.fetchImage(from: Link.imageURL.rawValue) { imageData in

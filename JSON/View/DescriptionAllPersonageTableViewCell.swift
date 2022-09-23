@@ -21,7 +21,6 @@ class DescriptionAllPersonageTableViewCell: UITableViewCell {
         statusLabel.text = "Status: \(personage.status ?? "")"
         locationLabel.text = "Location: \(personage.location?.name ?? "")"
         
-        
         NetworkManager.shared.fetchImage(from: personage.image) { imageData in
             self.descriptionImage.image = UIImage(data: imageData)
         }

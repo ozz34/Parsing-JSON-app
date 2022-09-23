@@ -9,7 +9,7 @@ import UIKit
 
 final class DescriptionAllPersonageTableViewController: UITableViewController {
 
-    var personages: Personages?
+    private var personages: Personages?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +17,7 @@ final class DescriptionAllPersonageTableViewController: UITableViewController {
         tableView.rowHeight = 100
     }
     
-    // MARK: - Table view data source
+    // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         personages?.results.count ?? 0
     }
@@ -34,7 +34,7 @@ final class DescriptionAllPersonageTableViewController: UITableViewController {
     
     //MARK: - Networking
     func fetchAllPersonage() {
-        NetworkManager.shared.fetchAll(url: Link.allPersonage.rawValue) { personages in
+        NetworkManager.shared.fetch(dataType: Personages.self, from: Link.allPersonage.rawValue) { personages in
             self.personages = personages
             DispatchQueue.main.async {
                     self.tableView.reloadData()

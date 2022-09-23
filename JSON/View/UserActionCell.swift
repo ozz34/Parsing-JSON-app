@@ -10,5 +10,4 @@ import UIKit
 class UserActionCell: UICollectionViewCell {
 
     @IBOutlet var nameButtonLabel: UILabel!
-    
 }
