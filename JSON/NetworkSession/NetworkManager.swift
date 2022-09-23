@@ -13,32 +13,46 @@ enum Link: String {
     case gordonURL = "https://rickandmortyapi.com/api/character/149"
 }
 
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case decodingError
+}
+
 final class NetworkManager {
     
     static let shared = NetworkManager()
     
     private init() {}
     
-    func fetchImage(from url: String?, completion: @escaping(Data) -> Void) {
+    func fetchImage(from url: String?, completion: @escaping(Result<Data, NetworkError>) -> Void) {
         
-        guard let url = URL(string: url ?? "") else { return }
+        guard let url = URL(string: url ?? "") else {
+            completion(.failure(.invalidURL))
+            return
+        }
         
         DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else { return }
+            guard let imageData = try? Data(contentsOf: url) else {
+                completion(.failure(.noData))
+                return }
             
             DispatchQueue.main.async {
-                completion(imageData)
+                completion(.success(imageData))
             }
         }
     }
     
     func fetch <T: Decodable>(dataType: T.Type,
                               from url: String?,
-                              completion: @escaping (T) -> Void) {
-        guard let url = URL(string: url ?? "") else { return }
+                              completion: @escaping (Result <(T), NetworkError>) -> Void) {
+        guard let url = URL(string: url ?? "") else {
+            completion(.failure(.invalidURL))
+            return }
 
         URLSession.shared.dataTask(with: url) {data, _, error in
             guard let data = data else {
+                completion(.failure(.noData))
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
@@ -46,7 +60,7 @@ final class NetworkManager {
             do {
                 let type = try JSONDecoder().decode(T.self, from: data)
                 DispatchQueue.main.async {
-                    completion(type)
+                    completion(.success(type))
                 }
             }
             catch {

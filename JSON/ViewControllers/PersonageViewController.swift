@@ -14,20 +14,31 @@ final class PersonageViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     
-    private var personage: Results?
-    
     //MARK: - Networking
     func fetchGordonLunas() {
         
-        NetworkManager.shared.fetch(dataType: Results.self , from: Link.gordonURL.rawValue) { personage in
-            DispatchQueue.main.async {
-                self.statusLabel.text = "Status:\(personage.status ?? "")"
-                self.nameLabel.text = "Name: \(personage.name ?? "")"
-                self.locationLabel.text = "Location: \(personage.location?.name ?? "")"
-            }
+        NetworkManager.shared.fetch(dataType: Results.self , from: Link.gordonURL.rawValue) { [weak self] result in
             
-            NetworkManager.shared.fetchImage(from: personage.image) { imageData in
-                self.personageImageView.image = UIImage(data: imageData)
+            switch result {
+                
+            case .success(let personage):
+                DispatchQueue.main.async {
+                    self?.statusLabel.text = "Status:\(personage.status ?? "")"
+                    self?.nameLabel.text = "Name: \(personage.name ?? "")"
+                    self?.locationLabel.text = "Location: \(personage.location?.name ?? "")"
+                    
+                    NetworkManager.shared.fetchImage(from: personage.image) { [weak self] result in
+                        switch result {
+                            
+                        case .success(let imageData):
+                            self?.personageImageView.image = UIImage(data: imageData)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
             }
         }
     }

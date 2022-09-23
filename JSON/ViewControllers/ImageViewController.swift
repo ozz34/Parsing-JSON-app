@@ -24,9 +24,16 @@ final class ImageViewController: UIViewController {
     //MARK: - Networking
     private func fetchImage() {
         
-        NetworkManager.shared.fetchImage(from: Link.imageURL.rawValue) { imageData in
-            self.imageView.image = UIImage(data: imageData)
-            self.activityIndicator.stopAnimating()
+        NetworkManager.shared.fetchImage(from: Link.imageURL.rawValue, completion: { [weak self] result in
+            switch result {
+                
+            case .success(let imageData):
+                self?.imageView.image = UIImage(data: imageData)
+                self?.activityIndicator.stopAnimating()
+            case .failure(let error):
+                print(error)
+            }
+        })
         }
     }
-}
+

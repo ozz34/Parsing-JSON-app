@@ -34,10 +34,16 @@ final class DescriptionAllPersonageTableViewController: UITableViewController {
     
     //MARK: - Networking
     func fetchAllPersonage() {
-        NetworkManager.shared.fetch(dataType: Personages.self, from: Link.allPersonage.rawValue) { personages in
-            self.personages = personages
+        NetworkManager.shared.fetch(dataType: Personages.self, from: Link.allPersonage.rawValue) { [weak self] result in
+            switch result {
+                
+            case .success(let personages):
+                self?.personages = personages
+            case .failure(let error):
+                print(error)
+            }
             DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                self?.tableView.reloadData()
             }
         }
     }
