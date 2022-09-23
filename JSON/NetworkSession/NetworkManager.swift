@@ -31,4 +31,69 @@ final class NetworkManager {
             }
         }
     }
+    
+//    func fetch<T: Decodable>(dataType: T.Type, from url: String?, completion: @escaping (T) -> Void) {
+//        guard let url = URL(string: url ?? "") else { return }
+//        
+//        URLSession.shared.dataTask(with: url) {data, _, error in
+//            guard let data = data else {
+//                print(error?.localizedDescription ?? "No error description")
+//                return
+//            }
+//            
+//            do {
+//                let type = try JSONDecoder().decode(T.self, from: data)
+//                DispatchQueue.main.async {
+//                    completion(type)
+//                }
+//            }
+//            catch {
+//                print(error.localizedDescription)
+//            }
+//        }.resume()
+//    }
+    
+    func fetchPerson(url: String?, completion: @escaping(Results) -> Void) {
+        
+        guard let url = URL(string: url ?? "") else { return }
+        
+        URLSession.shared.dataTask(with: url) {data, _, error in
+            guard let data = data else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            
+            do {
+                let personage = try JSONDecoder().decode(Results.self, from: data)
+                DispatchQueue.main.async {
+                    completion(personage)
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
+    
+    func fetchAll(url: String?, completion: @escaping(Personages) -> Void) {
+        
+        guard let url = URL(string: url ?? "") else { return }
+        
+        URLSession.shared.dataTask(with: url) {data, _, error in
+            guard let data = data else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            
+            do {
+                let personages = try JSONDecoder().decode(Personages.self, from: data)
+                DispatchQueue.main.async {
+                    completion(personages)
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
 }

@@ -9,7 +9,8 @@ import UIKit
 
 class DescriptionAllPersonageTableViewCell: UITableViewCell {
 
-    @IBOutlet var descriptionImage: UIView!
+   
+    @IBOutlet var descriptionImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
@@ -20,9 +21,9 @@ class DescriptionAllPersonageTableViewCell: UITableViewCell {
         statusLabel.text = "Status: \(personage.status ?? "")"
         locationLabel.text = "Location: \(personage.location?.name ?? "")"
         
+        
         NetworkManager.shared.fetchImage(from: personage.image) { imageData in
-            self.imageView?.image = UIImage(data: imageData)
-            self.imageView?.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-                }
+            self.descriptionImage.image = UIImage(data: imageData)
+        }
     }
 }

@@ -14,42 +14,22 @@ class PersonageViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     
-    var personage: Results!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
+    var personage: Results?
     
     func fetchGordonLunas() {
         
-        guard let url = URL(string: Link.gordonURL.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
+        NetworkManager.shared.fetchPerson(url: Link.gordonURL.rawValue) { personage in
+            DispatchQueue.main.async {
+                self.statusLabel.text = "Status:\(personage.status ?? "")"
+                self.nameLabel.text = "Name: \(personage.name ?? "")"
+                self.locationLabel.text = "Location: \(personage.location?.name ?? "")"
             }
             
-            do {
-                self.personage = try JSONDecoder().decode(Results.self, from: data)
+            NetworkManager.shared.fetchImage(from: personage.image) { imageData in
+                self.personageImageView.image = UIImage(data: imageData)
             }
-            catch {
-                print(error.localizedDescription)
-            }
-        }.resume()
-        
-        configurationPerson()
-    }
-    
-    private func configurationPerson() {
-        
-        statusLabel.text = "Status:\(personage.status ?? "")"
-        nameLabel.text = "Name: \(personage.name ?? "")"
-        locationLabel.text = "Location: \(personage.location?.name ?? "")"
-        
-        NetworkManager.shared.fetchImage(from: personage.image) { imageData in
-            self.personageImageView.image = UIImage(data: imageData)
         }
     }
 }
+        
+    
