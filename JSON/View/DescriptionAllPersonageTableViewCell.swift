@@ -17,9 +17,9 @@ class DescriptionAllPersonageTableViewCell: UITableViewCell {
     
     func configurationCell(with personage: Results) {
         
-        nameLabel.text = "Personage: \(personage.name ?? "")"
-        statusLabel.text = "Status: \(personage.status ?? "")"
-        locationLabel.text = "Location: \(personage.location?.name ?? "")"
+        nameLabel.text = "Personage: \(personage.name)"
+        statusLabel.text = "Status: \(personage.status)"
+        locationLabel.text = "Location: \(personage.location?.name)"
         
         NetworkManager.shared.fetchImage(from: personage.image) { [weak self] result in
             switch result {

@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 enum Link: String {
     case imageURL = "https://u-stena.ru/upload/iblock/8c2/8c2f36e88e65de30b8712b772cdf134a.jpg"
     case allPersonage = "https://rickandmortyapi.com/api/character"

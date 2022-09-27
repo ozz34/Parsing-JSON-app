@@ -15,6 +15,7 @@ final class DescriptionAllPersonageTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.rowHeight = 150
+      //  setupRefreshControl()
         
     }
     
@@ -48,4 +49,17 @@ final class DescriptionAllPersonageTableViewController: UITableViewController {
             }
         }
     }
+    
+//    @objc func refreshData() {
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//    }
+//
+//    private func setupRefreshControl() {
+//        refreshControl = UIRefreshControl()
+//        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+//        refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+//    }
 }
+
