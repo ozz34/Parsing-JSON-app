@@ -8,19 +8,16 @@
 import UIKit
 
 final class PersonageViewController: UIViewController {
-    
+    // MARK: - IBOutlets
     @IBOutlet var personageImageView: UIImageView!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     
-    //MARK: - Networking
+    // MARK: - Networking
     func fetchGordonLunas() {
-        
         NetworkManager.shared.fetch(dataType: Results.self , from: Link.gordonURL.rawValue) { [weak self] result in
-            
             switch result {
-                
             case .success(let personage):
                 DispatchQueue.main.async {
                     self?.statusLabel.text = "Status:\(personage.status ?? "")"
@@ -29,7 +26,6 @@ final class PersonageViewController: UIViewController {
                     
                     NetworkManager.shared.fetchImage(from: personage.image) { [weak self] result in
                         switch result {
-                            
                         case .success(let imageData):
                             self?.personageImageView.image = UIImage(data: imageData)
                         case .failure(let error):
@@ -43,5 +39,3 @@ final class PersonageViewController: UIViewController {
         }
     }
 }
-
-    

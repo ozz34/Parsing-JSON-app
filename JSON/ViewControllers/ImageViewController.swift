@@ -8,25 +8,22 @@
 import UIKit
 
 final class ImageViewController: UIViewController {
-
+    // MARK: - IBOutlets
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
+
+    // MARK: - Lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         
         fetchImage()
     }
-    
-    //MARK: - Networking
+    // MARK: - Networking
     private func fetchImage() {
-        
         NetworkManager.shared.fetchImage(from: Link.imageURL.rawValue, completion: { [weak self] result in
             switch result {
-                
             case .success(let imageData):
                 self?.imageView.image = UIImage(data: imageData)
                 self?.activityIndicator.stopAnimating()
@@ -36,4 +33,3 @@ final class ImageViewController: UIViewController {
         })
         }
     }
-

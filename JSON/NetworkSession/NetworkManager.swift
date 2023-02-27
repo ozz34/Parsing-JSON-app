@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum Link: String {
     case imageURL = "https://u-stena.ru/upload/iblock/8c2/8c2f36e88e65de30b8712b772cdf134a.jpg"
     case allPersonage = "https://rickandmortyapi.com/api/character"
@@ -21,18 +20,15 @@ enum NetworkError: Error {
 }
 
 final class NetworkManager {
-    
     static let shared = NetworkManager()
     
     private init() {}
     
     func fetchImage(from url: String?, completion: @escaping(Result<Data, NetworkError>) -> Void) {
-        
         guard let url = URL(string: url ?? "") else {
             completion(.failure(.invalidURL))
             return
         }
-        
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: url) else {
                 completion(.failure(.noData))
@@ -63,8 +59,7 @@ final class NetworkManager {
                 DispatchQueue.main.async {
                     completion(.success(type))
                 }
-            }
-            catch {
+            } catch {
                 print(error.localizedDescription)
             }
         }.resume()

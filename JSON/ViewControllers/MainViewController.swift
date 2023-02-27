@@ -14,10 +14,9 @@ enum UserAction: String, CaseIterable {
 }
 
 final class MainViewController: UICollectionViewController {
-    
     private let userActions = UserAction.allCases
     
-    //MARK: Navigation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showAllDescription" {
             guard let destinationVC = segue.destination as? DescriptionAllPersonageTableViewController else { return }
@@ -27,25 +26,25 @@ final class MainViewController: UICollectionViewController {
             personVC.fetchGordonLunas()
         }
     }
-    
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         userActions.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? UserActionCell else { return  UICollectionViewCell() } 
-        
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+                as? UserActionCell else { return  UICollectionViewCell() }
         let userAction = userActions[indexPath.item]
         cell.nameButtonLabel.text = userAction.rawValue
         cell.nameButtonLabel.textColor = .white
         cell.backgroundColor = .red
         cell.layer.cornerRadius = 10
-        
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let userAction = userActions[indexPath.item]
         
@@ -56,11 +55,12 @@ final class MainViewController: UICollectionViewController {
         }
     }
 }
-    // MARK: UICollectionViewDelegateFlowLayout
+    // MARK: - UICollectionViewDelegateFlowLayout
     extension MainViewController: UICollectionViewDelegateFlowLayout {
-
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        func collectionView(_ collectionView: UICollectionView,
+                            layout collectionViewLayout: UICollectionViewLayout,
+                            sizeForItemAt indexPath: IndexPath
+        ) -> CGSize {
         CGSize(width: UIScreen.main.bounds.width - 60, height: 100)
     }
 }
-

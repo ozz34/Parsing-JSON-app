@@ -72,12 +72,12 @@
 		877921E728D86304005ED976 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				87C3F16928DC807200C43592 /* NetworkSession */,
-				877921FC28D86327005ED976 /* App */,
+				8779220028D86398005ED976 /* Model */,
 				8779220928D87BB4005ED976 /* View */,
 				877921FD28D86371005ED976 /* ViewControllers */,
 				8779220228D863BC005ED976 /* Storyboards */,
-				8779220028D86398005ED976 /* Model */,
+				87C3F16928DC807200C43592 /* NetworkSession */,
+				877921FC28D86327005ED976 /* App */,
 				8779220128D863A0005ED976 /* Resourses */,
 			);
 			path = JSON;
@@ -156,6 +156,7 @@
 				877921E128D86304005ED976 /* Sources */,
 				877921E228D86304005ED976 /* Frameworks */,
 				877921E328D86304005ED976 /* Resources */,
+				870581B529AD19C500B34033 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -217,6 +218,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		870581B529AD19C500B34033 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		877921E128D86304005ED976 /* Sources */ = {
